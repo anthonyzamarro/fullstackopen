@@ -14,11 +14,32 @@ const Statistics = (props) => (
 );
 
 const Button = ({ onClick, type }) => {
-  
   return (
     <button onClick={e => onClick()}>
       {type}
     </button>
+  )
+}
+
+const Anecdote = ({anecdote, anecdotes, index}) => {
+  let [anecdoteVote, setAnecdoteVote] = useState(Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf,0));
+
+  const handleClickAnecdoteVote = val => {
+    setAnecdoteVote(e => {
+      console.log(anecdoteVote[index] + 1, index);
+      // anecdoteVote[index] = anecdoteVote[index] + 1
+      return anecdoteVote[index];
+    });
+  }
+
+  return (
+    <div>
+      {anecdote}
+      <br />
+      votes {anecdoteVote[index]}
+      <br />
+      {<button onClick={e => handleClickAnecdoteVote(index)}> vote </button> }
+    </div>
   )
 }
 
@@ -52,10 +73,12 @@ const App = () => {
   ]
    
   const [anecdote, setAnecdote] = useState(0);
-
+  
   const handleClickAnecdote = val => {
-    console.log(val)
-    setAnecdote(Math.floor(Math.random(val) * 10))
+    const rand = Math.floor(Math.random() * anecdotes.length);
+    setAnecdote(e => {
+      return setAnecdote(rand);
+    });
   }
 
   return (
@@ -83,9 +106,14 @@ const App = () => {
             }
         </tbody>
     </table>
-      {anecdotes[anecdote] !== undefined ? anecdotes[anecdote] : anecdotes[0]}
+      <Anecdote 
+        anecdote={anecdotes[anecdote]}
+        anecdotes={anecdotes}
+        index={anecdote} 
+      />
       <br/>
-      <Button onClick={() => handleClickAnecdote(anecdote)} type="anecdote" />
+      <Button onClick={e => handleClickAnecdote(anecdote)} type="anecdote" />
+      
     </>
   );
 }
