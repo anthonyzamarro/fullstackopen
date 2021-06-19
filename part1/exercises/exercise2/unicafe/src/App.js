@@ -23,6 +23,7 @@ const App = () => {
   }
 
   const all = neutral + good + bad;
+  const positive = good / all;
 
   return (
     <>
@@ -36,7 +37,7 @@ const App = () => {
       <br />
       <div>all {all}</div>
       <div>average {all / 3}</div>
-      <div>positive { `${(good / all) * 100}%` }</div>
+      <div>positive { `${isNaN(positive) ? 0 : positive * 100}%` }</div>
     </>
   );
 }
