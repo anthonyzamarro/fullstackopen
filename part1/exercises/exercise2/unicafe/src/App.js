@@ -31,13 +31,18 @@ const App = () => {
       <button onClick={() => handleClickGood(good)}>good</button>
       <button onClick={() => handleClickBad(bad)}>bad</button>
       <button onClick={() => handleClickNeutral(neutral)}>neutral</button>
-      <Statistics  num={good} type="good"/>
-      <Statistics  num={bad} type="neutral"/>
-      <Statistics num={neutral} type="neutral"/>
-      <br />
-      <div>all {all}</div>
-      <div>average {all / 3}</div>
-      <div>positive { `${isNaN(positive) ? 0 : positive * 100}%` }</div>
+      <h2>Statistics</h2>
+      {!all ? <div>No feedback given</div> : 
+      <>
+        <Statistics  num={good} type="good"/>
+        <Statistics  num={bad} type="neutral"/>
+        <Statistics num={neutral} type="neutral"/>
+        <br />
+        <div>all {all}</div>
+        <div>average {all / 3}</div>
+        <div>positive { `${isNaN(positive) ? 0 : positive * 100}%` }</div>
+      </>
+      }
     </>
   );
 }
