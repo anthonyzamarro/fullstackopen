@@ -1,18 +1,32 @@
 import React, {useState} from 'react';
 
+const Statistic = ({type, num}) => (
+  <div>
+    {type} {num}
+  </div>
+);
+
 const Statistics = (props) => (
   <div>
-    {props.type} {props.num}
-
+    <Statistic type={props.type} num={props.num} />
   </div>
-)
+);
+
+const Button = ({ onClick, type }) => {
+  
+  return (
+    <button onClick={e => onClick()}>
+      {type}
+    </button>
+  )
+}
 
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const handleClickGood = (val, all) => {
+  const handleClickGood = (val) => {
     setGood(val + 1);
   }
   const handleClickNeutral = (val) => {
@@ -28,19 +42,18 @@ const App = () => {
   return (
     <>
       <h1>give feedback</h1>
-      <button onClick={() => handleClickGood(good)}>good</button>
-      <button onClick={() => handleClickBad(bad)}>bad</button>
-      <button onClick={() => handleClickNeutral(neutral)}>neutral</button>
+      <Button onClick={() => handleClickGood(good)} type="good" />
+      <Button onClick={() => handleClickBad(bad)} type="bad" />
+      <Button onClick={() => handleClickNeutral(neutral)} type="neutral" />
       <h2>Statistics</h2>
       {!all ? <div>No feedback given</div> : 
       <>
-        <Statistics  num={good} type="good"/>
-        <Statistics  num={bad} type="neutral"/>
+        <Statistics num={good} type="good"/>
+        <Statistics num={bad} type="neutral"/>
         <Statistics num={neutral} type="neutral"/>
-        <br />
-        <div>all {all}</div>
-        <div>average {all / 3}</div>
-        <div>positive { `${isNaN(positive) ? 0 : positive * 100}%` }</div>
+        <Statistics num={all} type="all"/>
+        <Statistics num={all / 3} type="average"/>
+        <Statistics num={`${isNaN(positive) ? 0 : positive * 100}%`} type="positive"/>
       </>
       }
     </>
