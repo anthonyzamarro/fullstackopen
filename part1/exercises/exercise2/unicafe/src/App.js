@@ -21,13 +21,22 @@ const Button = ({ onClick, type }) => {
   )
 }
 
+const LargestVotedAnecdote = ({votes, anecdotes, index}) => {
+  const max = Math.max(...votes);
+  return (
+      <>
+        <h2>Anecdote with most votes</h2>
+        {max > 0 && votes.indexOf(max) === index ? <div>{anecdotes[index]}<br />max {max}</div> : <div>🤔 this isn't the most</div>}
+      </>
+  )
+}
+
 const Anecdote = ({anecdote, anecdotes, index}) => {
   let [anecdoteVote, setAnecdoteVote] = useState(Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf,0));
   const handleClickAnecdoteVote = () => {
     const copy = [...anecdoteVote];
     copy[index] = copy[index] + 1;
-    setAnecdoteVote(copy)
-    console.log(anecdoteVote[index], anecdoteVote, copy);
+    setAnecdoteVote(copy);
   }
 
   return (
@@ -37,6 +46,8 @@ const Anecdote = ({anecdote, anecdotes, index}) => {
       index {index} votes {anecdoteVote[index]}
       <br />
       <button onClick={e => handleClickAnecdoteVote()}> vote </button> 
+      <br />
+      <LargestVotedAnecdote votes={anecdoteVote} anecdotes={anecdotes} index={index}/>
     </div>
   )
 }
@@ -104,7 +115,7 @@ const App = () => {
             }
         </tbody>
     </table>
-      
+    <Button onClick={e => handleClickAnecdote(anecdote)} type="next anecdote" />
       {
         <Anecdote 
         anecdote={anecdotes[anecdote]}
@@ -113,8 +124,6 @@ const App = () => {
       /> 
       }
       <br/>
-      <Button onClick={e => handleClickAnecdote(anecdote)} type="next anecdote" />
-      
     </>
   );
 }
