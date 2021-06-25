@@ -23,22 +23,20 @@ const Button = ({ onClick, type }) => {
 
 const Anecdote = ({anecdote, anecdotes, index}) => {
   let [anecdoteVote, setAnecdoteVote] = useState(Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf,0));
-
-  const handleClickAnecdoteVote = val => {
-    setAnecdoteVote(e => {
-      console.log(anecdoteVote[index] + 1, index);
-      // anecdoteVote[index] = anecdoteVote[index] + 1
-      return anecdoteVote[index];
-    });
+  const handleClickAnecdoteVote = () => {
+    const copy = [...anecdoteVote];
+    copy[index] = copy[index] + 1;
+    setAnecdoteVote(copy)
+    console.log(anecdoteVote[index], anecdoteVote, copy);
   }
 
   return (
     <div>
       {anecdote}
       <br />
-      votes {anecdoteVote[index]}
+      index {index} votes {anecdoteVote[index]}
       <br />
-      {<button onClick={e => handleClickAnecdoteVote(index)}> vote </button> }
+      <button onClick={e => handleClickAnecdoteVote()}> vote </button> 
     </div>
   )
 }
@@ -70,7 +68,7 @@ const App = () => {
     'Premature optimization is the root of all evil.',
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blod tests when dianosing patients'
-  ]
+  ];
    
   const [anecdote, setAnecdote] = useState(0);
   
@@ -106,13 +104,16 @@ const App = () => {
             }
         </tbody>
     </table>
-      <Anecdote 
+      
+      {
+        <Anecdote 
         anecdote={anecdotes[anecdote]}
         anecdotes={anecdotes}
-        index={anecdote} 
-      />
+        index={anecdote}
+      /> 
+      }
       <br/>
-      <Button onClick={e => handleClickAnecdote(anecdote)} type="anecdote" />
+      <Button onClick={e => handleClickAnecdote(anecdote)} type="next anecdote" />
       
     </>
   );
