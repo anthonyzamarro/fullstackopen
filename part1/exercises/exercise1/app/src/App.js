@@ -2,25 +2,50 @@ import React from 'react';
 
 const App = () => {
 
-	const course = {
-		name: 'Half Stack application development',
-		parts: [
+	const course = [
+		{
+		  name: 'Half Stack application development',
+		  id: 1,
+		  parts: [
 			{
-				name: 'Fundamentals of React',
-				exercises: 10
+			  name: 'Fundamentals of React',
+			  exercises: 10,
+			  id: 1
 			},
-
 			{
-				name: 'Useing props to pass data',
-				exercises: 7
+			  name: 'Using props to pass data',
+			  exercises: 7,
+			  id: 2
 			},
-
 			{
-				name: 'State of a component',
-				exercises: 34
+			  name: 'State of a component',
+			  exercises: 14,
+			  id: 3
+			},
+			{
+			  name: 'Redux',
+			  exercises: 11,
+			  id: 4
 			}
-		]
-	}
+		  ]
+		}, 
+		{
+		  name: 'Node.js',
+		  id: 2,
+		  parts: [
+			{
+			  name: 'Routing',
+			  exercises: 3,
+			  id: 1
+			},
+			{
+			  name: 'Middlewares',
+			  exercises: 7,
+			  id: 2
+			}
+		  ]
+		}
+	  ]
 
 	const Header = (props) => (
 		<>
@@ -30,28 +55,46 @@ const App = () => {
 
 	const Part = (props) => (
 		<>
-			<p>{props.content} {props.exercises}</p>
+			<h1>{props.content}</h1> Total <span>{props.exercises}</span>
 		</>
 	)
 
-	const Content = (props) => (
-		<>
-			<Part content={props.name} exercises={props.exercises}/>
-		</>
+	const Content = (props) => {
+		const total = Object.values(props.exercises.parts).map(part => part.exercises);
+		console.log(props);
+		return (
+			<>
+				<Part content={props.name} exercises={total.reduce((a, b) => a + b)}/>
+			</>
+
+		)
+	}
+
+	const Total = ({ total }) => {
+		const parts = total.map(t => t.parts);
+		const exercises = parts.map(part => part.map(p => p.exercises).reduce((a, b) => a + b));
+		return (
+			<>
+				<p>Number of exercises {exercises.reduce((a, b) => a + b)}</p>
+			</>
+		)
+	}
+	
+	const Course = ({props, children}) => (
+		<div>
+			{children}
+		</div>
 	)
 
-	const Total = (props) => (
-		<>
-			<p>Number of exercises {props.total} </p>
-		</>
-	)
   return (
     <div>
-	    <Header title={course.name} />
+		<Course>
+	    <Header title="hi" />
 	    {
-	    	course.parts.map(part => <Content name={part.name} exercises={part.exercises} />)
+	    	course.map(part => <Content key={part.id} name={part.name} exercises={part} />)
 	   }
-	    <Total total={course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises } />
+		<Total total={course} />
+		</Course>
     </div>
   );
 }
