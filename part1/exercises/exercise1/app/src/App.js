@@ -1,4 +1,5 @@
 import React from 'react';
+import Course from './components/Course';
 
 const App = () => {
 
@@ -59,7 +60,7 @@ const App = () => {
 			{props.parts.map(part => {
 				return <div key={part.id}>{part.name} {part.exercises}</div>
 			})}
-			<div>Total {props.exercises}</div>
+			<strong>Total {props.exercises}</strong>
 		</>
 	)
 
@@ -81,21 +82,15 @@ const App = () => {
 		const exercises = parts.map(part => part.map(p => p.exercises).reduce((a, b) => a + b));
 		return (
 			<>
-				<p>Number of exercises {exercises.reduce((a, b) => a + b)}</p>
+				<p><strong>Number of exercises {exercises.reduce((a, b) => a + b)}</strong></p>
 			</>
 		)
 	}
-	
-	const Course = ({props, children}) => (
-		<div>
-			{children}
-		</div>
-	)
 
   return (
     <div>
 		<Course>
-	    <Header title="hi" />
+	    <Header title="" />
 	    {
 	    	course.map(part => <Content key={part.id} name={part.name} exercises={part} />)
 	   }
