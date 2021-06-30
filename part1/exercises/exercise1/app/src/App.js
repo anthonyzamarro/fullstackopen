@@ -55,16 +55,22 @@ const App = () => {
 
 	const Part = (props) => (
 		<>
-			<h1>{props.content}</h1> Total <span>{props.exercises}</span>
+			<h1>{props.content}</h1>
+			{props.parts.map(part => {
+				return <div key={part.id}>{part.name} {part.exercises}</div>
+			})}
+			<div>Total {props.exercises}</div>
 		</>
 	)
 
 	const Content = (props) => {
-		const total = Object.values(props.exercises.parts).map(part => part.exercises);
-		console.log(props);
+		const parts = Object.values(props.exercises.parts);
+		const total = parts.map(part => part.exercises);
+		console.log(parts)
 		return (
 			<>
-				<Part content={props.name} exercises={total.reduce((a, b) => a + b)}/>
+				<Part content={props.name} exercises={total.reduce((a, b) => a + b)} 
+				parts={parts}/>
 			</>
 
 		)
