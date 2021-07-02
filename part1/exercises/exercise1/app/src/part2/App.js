@@ -11,17 +11,14 @@ const App2 = () => {
     }
     
     const handleClick = e => {
-      e.preventDefault();
-    
-      persons.forEach(person => {
-          if (person.name !== newName) {
-            setPersons(persons.concat({name: newName}));
-        } else {
-            return alert(`${newName} has already been added!`);
-          }
-      });
+        e.preventDefault();
 
-      console.log(persons);
+        const names = Object.values(persons).map(person => person.name);
+        if (names.includes(newName)) {
+            alert(`${newName} is already added to phonebook`); 
+        } else {
+            setPersons(persons.concat({name: newName})); 
+        }
   }
 
   return (
