@@ -34,23 +34,16 @@ const App2 = () => {
         }     
     }
 
-   
-    // const handleFilterChange = e => {
-    //     // setNewFilteredValue(e.target.value);
-    //     // console.log(filteredValue);
-    //     if (e) return e.target.value;
-    // }
-
-    useEffect(() => {
-        console.log(filteredValue)
-    }, [filteredValue])
+    const handleFilterChange = e => {
+        setNewFilteredValue(e.target.value);
+    }
 
   return (
     <div>
       <h2>Phonebook</h2>
       <form>
           <div>
-            Filter shown with <input value={persons.name} onChange={e => setNewFilteredValue(e.target.value)} />
+            Filter shown with <input value={persons.name} onChange={handleFilterChange} />
           </div>
           <br />
             <h2><strong>add new</strong></h2>
