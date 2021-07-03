@@ -5,7 +5,7 @@ import Persons from './components/Persons';
 import axios from 'axios';
 
 
-function App2() {
+function AppPersons() {
     const [persons, setPersons] = useState([]);
     const [newName, setNewName] = useState('');
     const [newNumber, setNewNumber] = useState('');
@@ -65,4 +65,4 @@ function App2() {
     );
 }
 
-export default App2
+export default AppPersons

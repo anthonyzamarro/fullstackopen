@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom'
 // import App from './App'
-import App2 from './part2/App'
+// import AppPersons from './part2/AppPersons'
+import AppCountries from './part2/AppCountries'
 
 ReactDOM.render(
-  <App2 />, 
+  <AppCountries />, 
   document.getElementById('root')
 )

@@ -67,6 +67,7 @@ const App = () => {
 	const Content = (props) => {
 		const parts = Object.values(props.exercises.parts);
 		const total = parts.map(part => part.exercises);
+		console.log(parts)
 		return (
 			<>
 				<Part content={props.name} exercises={total.reduce((a, b) => a + b)} 
