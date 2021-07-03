@@ -56,7 +56,6 @@ function App2() {
             />
             <h2>Contacts</h2>
             <Persons persons={persons} filtered={filteredValue} />
-            {/* {persons.filter(person => person.name.toLowerCase().includes(filteredValue.toLowerCase())).map(person => <div key={person.name}>Name: {person.name} {person.number}</div>)} */}
         </div>
     );
 }
